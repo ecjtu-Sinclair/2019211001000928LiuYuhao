@@ -1,13 +1,24 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>HW1</title>
 </head>
+
 <body>
-<h1><%= "Hello World!!!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<%
+    java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    java.util.Date currentTime = new java.util.Date();
+    String time = simpleDateFormat.format(currentTime).toString();
+    out.println("Name:Liu Yuhao<br>");
+    out.println("ID:2019211001000928<br>");
+    out.println("Data and Time："+time);
+%>
+
 </body>
 </html>
