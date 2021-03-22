@@ -9,46 +9,16 @@
 
 <html>
 <head>
-    <title>HW2</title>
+    <title>New User Registration</title>
 </head>
 <body>
-<form method="post">
-    <table border="3px" bgcolor="#fffaf0">
-        <tr>
-            New User Registration
-        </tr>
-
-        <tr>
-            <td><input type="text" name="Name" placeholder="Username"/></td>
-        </tr>
-
-        <tr>
-            <td><input type="password" name="Pwd" placeholder="Password"/></td>
-        </tr>
-
-        <tr>
-            <td><input type="text" name="Email" placeholder="Email"/></td>
-        </tr>
-
-        <tr>
-            <td>
-                Gender
-                <input type="radio" name="Gender" value="Male" checked="checked"/>Male
-                <input type="radio" name="Gender" value="Female" /> Female
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <input type="date" name="Date" placeholder="Date of Birth"/>
-            </td>>
-
-        </tr>
-
-        <tr>
-            <td><input type="submit" value="register"/></td>
-        </tr>
-
-    </table></form>
+<form method="post" action="/register">
+    username<input type="text" name="username"/><br/>
+    password<input type="password" name="password"/><br/>
+    Email<input type="text" name="email"/><br/>
+    Gender<input type="radio" name="male">Male <input type="radio" name="female">Female <br/>
+    Date of Birth:<input type="text name=" name="birthDate"><br/>
+    <input type="submit" name="Register"/>
+</form>
 </body>
 </html>
