@@ -10,7 +10,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+@WebServlet(
+        urlPatterns = {"/config"},
+        initParams = {
+                @WebInitParam(name="name",value="LiuYuhao"),
+                @WebInitParam(name="studentid",value="2019211001000928"),
+        }
+)
 public class ConfigDemoServlet extends HttpServlet {
 
 
