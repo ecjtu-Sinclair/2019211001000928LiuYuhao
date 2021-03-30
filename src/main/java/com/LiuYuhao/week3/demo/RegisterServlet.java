@@ -49,22 +49,15 @@ public class RegisterServlet extends HttpServlet {
         String gender = request.getParameter("gender");
         String birthDate = request.getParameter("birthDate");
 
+        String sql = "insert into userdb.usertable(id,username, password, email, gender , birthdate) values('0928','LiuYuhao','1234','3356485569@qq.com','male','2000-11-30');";
         try {
-            String sql = "insert into userdb.usertable(id,username, password, email, gender , birthdate) values('0928','LiuYuhao','1234','3356485569@qq.com','male','2000-11-30');";
-            String SQL = "select * from usertable";
             Statement stmt=con.createStatement();
             stmt.executeUpdate(sql);
-            ResultSet rs = stmt.executeQuery(SQL);
+            ResultSet rs = stmt.executeQuery("select * from usertable");
+            response.setContentType("text/html");
             PrintWriter writer = response.getWriter();
-            writer.println("<table>" +
-                    "<tr>" +
-                    "<td>ID</td>" +
-                    "<td>UserName</td>" +
-                    "<td>Password</td>" +
-                    "<td>Email</td>" +
-                    "<td>Gender</td>" +
-                    "<td>BirthDate</td>" +
-                    "</tr>");
+            writer.println("<html><body>");
+            writer.println("<table><tr><td>ID</td><td>UserName</td><td>Password</td><td>Email</td><td>Gender</td><td>BirthDate</td></tr>");
             while (rs.next()) {
                 writer.print("<tr>");
                 writer.print("<td>" + rs.getInt("id") + "</td>");
@@ -73,10 +66,11 @@ public class RegisterServlet extends HttpServlet {
                 writer.print("<td>" + rs.getString("email") + "</td>");
                 writer.print("<td>" + rs.getString("gender") + "</td>");
                 writer.print("<td>" + rs.getString("birthdate") + "</td>");
-                writer.print("</tr>");
-                writer.print("</table>");
-                writer.close();
             }
+            writer.print("</tr>");
+            writer.print("</table>");
+            writer.print("</body></html>");
+            writer.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
