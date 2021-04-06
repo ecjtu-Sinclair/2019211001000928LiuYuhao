@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
@@ -38,38 +39,37 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("i am in doGet()");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
 
+        //get parameter from request
+
+        String Username = request.getParameter("username");
+        String Password = request.getParameter("password");
+
+        //response
+
+        String x = null;
+        String y = null;
+        PrintWriter writer = response.getWriter();
         try {
-            Statement stmt=con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from usertable where username=LiuYuhao and password=1234");
-            response.setContentType("text/html");
-            PrintWriter writer = response.getWriter();
-            writer.println("<html><body>");
-            writer.println("<table><tr><td>ID</td><td>UserName</td><td>Password</td><td>Email</td><td>Gender</td><td>BirthDate</td></tr>");
-            while (rs.next()) {
-                writer.print("<tr>");
-                writer.print("<td>" + rs.getInt("id") + "</td>");
-                writer.print("<td>" + rs.getString("username") + "</td>");
-                writer.print("<td>" + rs.getString("password") + "</td>");
-            }
-            writer.print("</tr>");
-            writer.print("</table>");
-            writer.print("</body></html>");
-            writer.close();
-            if(){
-                writer.println("Login Success!!!");
-                writer.println("Welcome"+username);
-                else{
-                    writer.println("Username or Password Error!!!");
-                }
+            Statement stmt = con.createStatement();
+            String User= "select * from userdb.dbo.usertable where username='LiuYuhao'and password='1234'";
+            ResultSet rs = stmt.executeQuery(User);
+            while(rs.next()) {
+                x = rs.getString("username");
+                y = rs.getString("password");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
+        if (Objects.equals(Username, x) && Objects.equals(Password, y)) {
+            writer.println("Login Success!!!");
+            writer.println("Welcome  " + x);
+        } else {
+            writer.println("Username or Password Error!!!");
+        }
+
 
     }
 }
+
