@@ -19,6 +19,9 @@
         <param-name>password</param-name>
         <param-value>lyh3356485569</param-value>
     </context-param>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
 <!--    <servlet>-->
 <!--        <servlet-name>RegisterServlet</servlet-name>-->
 <!--        <servlet-class>com.LiuYuhao.week3.demo.RegisterServlet</servlet-class>-->
