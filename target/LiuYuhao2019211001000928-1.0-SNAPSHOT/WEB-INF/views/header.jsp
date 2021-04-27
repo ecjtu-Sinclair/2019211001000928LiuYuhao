@@ -46,7 +46,7 @@
       <%
           if(session.getAttribute("user")!=null){
       %>
-   <br> <a href="Logout">Logout</a>
+   <br> <a href="#">Logout</a>
 <%}
 %>
   <br><a href="#">My Cart</a><br/>

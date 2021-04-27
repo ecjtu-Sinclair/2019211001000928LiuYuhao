@@ -9,7 +9,7 @@ import java.util.List;
 public class UserDao implements IUserDao{
 
     @Override
-    public boolean saveUser(Connection con, User user) throws SQLException {
+    public int saveUser(Connection con, User user) throws SQLException {
         //insert
         String sql ="insert userdb.dbo.usertable  id=?,username=?,password=?,email=?,gender=?,birthdate=?";
         PreparedStatement st = con.prepareStatement(sql);
@@ -19,63 +19,45 @@ public class UserDao implements IUserDao{
         st.setString(4,user.getEmail());
         st.setString(5,user.getGender());
         st.setDate(6, (java.sql.Date) user.getBirthdate());
-        ResultSet rs = st.executeQuery();
-        if(rs.next()){
-            user = new User();
-            user.setId(rs.getInt("id"));
-            user.setUsername(rs.getString("username"));
-            user.setPassword(rs.getString("password"));
-            user.setEmail(rs.getString("email"));
-            user.setGender(rs.getString("gender"));
-            user.setBirthdate(rs.getDate("birthdate"));
-        }
-        return true;
+//        ResultSet rs = st.executeQuery();
+//        if(rs.next()){
+//            user = new User();
+//            user.setId(rs.getInt("id"));
+//            user.setUsername(rs.getString("username"));
+//            user.setPassword(rs.getString("password"));
+//            user.setEmail(rs.getString("email"));
+//            user.setGender(rs.getString("gender"));
+//            user.setBirthdate(rs.getDate("birthdate"));
+//        }
+//        return true;
+        return st.executeUpdate();
     }
 
     @Override
     public int deleteUser(Connection con, User user) throws SQLException {
-        //delete..where id=?
         String deleteUser ="delete from userdb.dbo.usertable where id=?";
         PreparedStatement st = con.prepareStatement(deleteUser);
         st.setInt(1,user.getId());
-        ResultSet rs = st.executeQuery();
-        user = null;
-        if(rs.next()){
-            user = new User();
-            user.setId(rs.getInt("id"));
-            user.setUsername(rs.getString("username"));
-            user.setPassword(rs.getString("password"));
-            user.setEmail(rs.getString("email"));
-            user.setGender(rs.getString("gender"));
-            user.setBirthdate(rs.getDate("birthdate"));
-        }
-        return 0;
+        return st.executeUpdate();
     }
 
 
     @Override
     public int updateUser(Connection con, User user) throws SQLException {
-        //update..where id=?
-        String updateUser ="update userdb.dbo.usertable set id=?,username=?,password=?,email=?,gender=?,birthdate=?";
-        PreparedStatement st = con.prepareStatement(updateUser);
-        st.setInt(1,user.getId());
-        st.setString(2,user.getUsername());
-        st.setString(3,user.getPassword());
-        st.setString(4,user.getEmail());
-        st.setString(5,user.getGender());
-        st.setDate(6, (java.sql.Date) user.getBirthdate());
-        ResultSet rs = st.executeQuery();
-        user = null;
-        if(rs.next()){
-            user = new User();
-            user.setId(rs.getInt("id"));
-            user.setUsername(rs.getString("username"));
-            user.setPassword(rs.getString("password"));
-            user.setEmail(rs.getString("email"));
-            user.setGender(rs.getString("gender"));
-            user.setBirthdate(rs.getDate("birthdate"));
-        }
-        return 0;
+        String sql = "update userdb.dbo.usertable set username=? , password=?,email=?, gender=?, birthdate=? where id=?";
+        PreparedStatement st = con.prepareStatement(sql);
+        st.setString(1,user.getUsername());
+        st.setString(2,user.getPassword());
+        st.setString(3,user.getEmail());
+        st.setString(4,user.getGender());
+        // st.setDate(6, (java.sql.Date) user.getBirthdate());
+        // new java.sql.Date(user.getBirthdate().getTime())
+        st.setDate(5, new java.sql.Date(user.getBirthdate().getTime()));
+        st.setInt(6,user.getId());
+
+        int rs = st.executeUpdate();
+
+        return rs;
     }
 
 
@@ -105,11 +87,9 @@ public class UserDao implements IUserDao{
     public User findByUsernamePassword(Connection con, String username, String password) throws SQLException {
         //use for login
         //select..where username=? and password=?
+        Statement st = con.createStatement();
         String sql = "select * from userdb.dbo.usertable where username=" + "'" + username + "'" + "and password='" + password + "'";
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setString(1,username);
-        st.setString(2,password);
-        ResultSet rs = st.executeQuery();
+        ResultSet rs = st.executeQuery(sql);
         User user=null;
         if (rs.next()) {
             //get from rs and set into user model
@@ -141,7 +121,7 @@ public class UserDao implements IUserDao{
             user.setGender(rs.getString("gender"));
             user.setBirthdate(rs.getDate("birthdate"));
         }
-        return (List<User>) user;
+        return (List<User>)user;
     }
 
     @Override
