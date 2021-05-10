@@ -17,10 +17,10 @@ import javax.servlet.*;
 public class LoginServlet extends HttpServlet {
 
     Connection con = null;
-    String driver;
-    String url;
-    String username;
-    String password;
+//    String driver;
+//    String url;
+//    String username;
+//    String password;
 
     @Override
     public void init() throws ServletException {

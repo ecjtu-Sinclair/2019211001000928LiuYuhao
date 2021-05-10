@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
         import java.sql.*;
 
 @WebServlet(
-        urlPatterns = {"/register"}
+        urlPatterns = {"/register"},loadOnStartup = 1
 )
 public class RegisterServlet extends HttpServlet {
     Connection con=null;
@@ -35,13 +35,13 @@ public class RegisterServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        doPost(request,response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.getRequestDispatcher("WEB-INF/views/register.jsp").forward(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id= Integer.parseInt(request.getParameter("id"));
+        String id = null;
         String username=request.getParameter("username");
         String password=request.getParameter("password");
         String email=request.getParameter("email");
@@ -74,7 +74,7 @@ public class RegisterServlet extends HttpServlet {
 //            request.setAttribute("rsname",rs);
 //            request.getRequestDispatcher("userList.jsp").forward(request,response);
 //            System.out.println("i am in RegisterServlet-->doPost()--> after forward()");
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("login");
         } catch (SQLException e) {
             e.printStackTrace();
         }

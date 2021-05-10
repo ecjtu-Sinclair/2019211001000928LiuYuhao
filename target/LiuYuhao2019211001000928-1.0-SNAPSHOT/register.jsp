@@ -7,13 +7,14 @@
 --%>
 <%@include file="header.jsp"%>
 This is my Register JSP page.
-<form method="post" action="register">
-    id<input type="text" name="id"/><br/>
-    username<input type="text" name="username"/><br/>
-    password<input type="password" name="password"/><br/>
-    Email<input type="text" name="email"/><br/>
-    Gender<input type="radio" name="gender" value="male">Male <input type="radio" name="gender" value="female">Female <br/>
-    Date of Birth:<input type="text" name="birthdate"><br/>
+<form method="post" action="updateUser">
+    <input type="hidden" name="id" value="<%=u.getId()%>"/><br/>
+    username<input type="text" name="username" value="<%=u.getUsername()%>"/><br/>
+    password<input type="password" name="password" value="<%=u.getPassword()%>/><br/>
+    Email<input type="text" name="email" value="<%=u.getEmail()%>/><br/>
+    Gender<input type="radio" name="gender" value="male" <%= "male".equals(u.getGender())?"checked" :""%>>Male
+    <input type="radio" name="gender" value="female" <%= "female".equals(u.getGender())?"checked" :""%>>Female <br/>
+    Date of Birth:<input type="text" name="birthdate" value="<%=u.getBirthDate()%>><br/>
     <input type="submit" value="register"/>
 </form>
 <%@include file="footer.jsp"%>

@@ -9,12 +9,12 @@
 
 <%@include file="header.jsp"%>
 <h1>User Info</h1>
-<%--<%--%>
-<%--    Cookie[] allCookies=request.getCookies();--%>
-<%--    for(Cookie c:allCookies){--%>
-<%--        out.println("<br/>"+c.getName()+"---"+c.getValue());--%>
-<%--    }--%>
-<%--%>--%>
+<%
+    Cookie[] allCookies=request.getCookies();
+    for(Cookie c:allCookies){
+        out.println("<br/>"+c.getName()+"---"+c.getValue());
+    }
+%>
 
 <%
     User u=(User) session.getAttribute("user");
