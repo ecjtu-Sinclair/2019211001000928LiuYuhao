@@ -60,7 +60,7 @@ public class UpdateUserServlet extends HttpServlet {
 
             //forward to WEB-INF/Views/userInfo.jsp
             //reLogin-->use new password
-            request.getRequestDispatcher("/Login").forward(request,response);
+            request.getRequestDispatcher("accountDetails").forward(request,response);
             // request.getRequestDispatcher("WEB-INF/views/userInfo.jsp").forward(request, response);
 
         } catch (SQLException throwables) {
